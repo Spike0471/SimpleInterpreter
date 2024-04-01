@@ -1,0 +1,66 @@
+# Visual Studio generated files
+*.sdf
+*.opensdf
+*.sln.docstates
+*.suo
+*.user
+*.userprefs
+*.vs
+
+# User-specific files
+*.pdb
+*.ninja
+
+# Build output
+[Dd]ebug/
+[Rr]elease/
+x64/
+Win32/
+x86/
+bin/
+obj/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.make
+*.qmlc
+*.jsc
+
+# Others
+*.log
+*.tar.*
+*.gz
+*.bzip
+*.zip
+*.rar
+*.7z
+*.ini
+*.diff
+*.patch
+*.bak
+*.orig
+*.swp
+*.swo
+*.tmp
+*.temp
+*.old
+*.backup
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Ignore all local configuration files
+*.local
+
+# Ignore all the local history of the project
+*.history
