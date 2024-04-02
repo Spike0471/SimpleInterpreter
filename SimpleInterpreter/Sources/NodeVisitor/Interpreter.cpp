@@ -1,6 +1,7 @@
 #include "NodeVisitor/Interpreter.h"
 #include "NodeVisitor/InterpreterException.h"
 #include "ASTNodes/UnaryOpNode.h"
+#include <iostream>
 
 using namespace std;
 
@@ -66,6 +67,7 @@ INTERPRETER_VISITOR(BinOpNode)
 	}
 
 	raiseError("Syntax error.");
+	return NULL;
 }
 
 INTERPRETER_VISITOR(UnaryOpNode)
@@ -104,7 +106,18 @@ INTERPRETER_VISITOR(AssignNode)
 {
 	auto node = dynamic_pointer_cast<AssignNode>(nodePtr);
 	auto varNode = dynamic_pointer_cast<VarNode>(node->getLeftPtr());
-	globalVariables[get<std::string>(varNode->getTokenPtr()->getValue())] = this->visit(node->getRightPtr());
+	auto rightValue = this->visit(node->getRightPtr());
+	auto varName = get<std::string>(varNode->getTokenPtr()->getValue());
+	auto sym = symtableBuilder.getSymbolTable().lookup(varName);
+	if (sym->getType()->getName() == "INTEGER" && !std::holds_alternative<int>(rightValue)) 
+	{
+		raiseError("Symbol type error.");
+	}
+	if (sym->getType()->getName() == "REAL" && !std::holds_alternative<float>(rightValue))
+	{
+		raiseError("Symbol type error.");
+	}
+	globalVariables[varName] = rightValue;
 	return NULL;
 }
 
@@ -166,5 +179,30 @@ Interpreter::Interpreter(std::string text)
 TokenValue Interpreter::interpret()
 {
 	ASTNodePtr rootNode = astParserPtr->parse();
+	symtableBuilder.visit(rootNode);
 	return this->visit(rootNode);
+}
+
+void Interpreter::printAllSymbols()
+{
+	for (const auto pair : symtableBuilder.getSymbolTable().getAll())
+	{
+		cout << pair.first << " : " << pair.second->getType()->getName() << endl;
+	}
+	cout << endl;
+	for (const auto pair : globalVariables)
+	{
+		auto varName = pair.first;
+		auto varType = symtableBuilder.getSymbolTable().lookup(varName);
+		string varValue = "";
+		if (varType->getType()->getName() == "INTEGER")
+		{
+			varValue = std::to_string(get<int>(pair.second));
+		}
+		if (varType->getType()->getName() == "REAL")
+		{
+			varValue = std::to_string(get<float>(pair.second));
+		}
+		cout << pair.first << " = " << varValue << endl;
+	}
 }

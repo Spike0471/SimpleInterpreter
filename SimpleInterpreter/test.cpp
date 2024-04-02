@@ -17,13 +17,13 @@ VAR
 	x,y : INTEGER;
 	a,b : REAL;
 BEGIN
-	x := 2.2;
+	x := 1;
+	a := 2.2;
 END.
 )";
-	ASTParser parser(text);
-	SymbolTableBuilder stb;
-	stb.visit(parser.parse());
-
+	Interpreter inter(text);
+	inter.interpret();
+	inter.printAllSymbols();
 	std::cin.get();
 
 	return 0;

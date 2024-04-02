@@ -20,3 +20,8 @@ SymbolPtr SymbolTable::lookup(std::string symbolName)
 	}
 	return symbols[symbolName];
 }
+
+std::map<std::string, SymbolPtr> SymbolTable::getAll() const
+{
+	return symbols;
+}

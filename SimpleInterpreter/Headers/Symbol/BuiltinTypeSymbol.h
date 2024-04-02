@@ -5,5 +5,5 @@ class BuiltinTypeSymbol : public Symbol
 {
 public:
 	BuiltinTypeSymbol(std::string sName);
-	std::string getType();
+	SymbolRawPtr getType();
 };

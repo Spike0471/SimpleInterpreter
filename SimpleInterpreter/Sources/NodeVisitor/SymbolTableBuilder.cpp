@@ -17,6 +17,11 @@ SymbolTableBuilder::SymbolTableBuilder()
 	ADD_TO_VISIT_MAP(AssignNode);
 }
 
+SymbolTable SymbolTableBuilder::getSymbolTable() const
+{
+	return symTable;
+}
+
 SYM_TABLE_BUILDER_VISITOR(ProgramNode)
 {
 	auto node = std::dynamic_pointer_cast<ProgramNode>(nodePtr);

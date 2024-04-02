@@ -6,7 +6,7 @@ VarSymbol::VarSymbol(std::string varName, SymbolPtr varType)
 	symbolType = varType;
 }
 
-std::string VarSymbol::getType()
+SymbolRawPtr VarSymbol::getType()
 {
-	return "<" + symbolName + ":" + symbolType->getType() + ">";
+	return symbolType->getType();
 }

@@ -9,12 +9,14 @@
 #include "ASTNodes/BlockNode.h"
 #include "ASTNodes/VarDeclNode.h"
 #include "ASTNodes/TypeNode.h"
+#include "NodeVisitor/SymbolTableBuilder.h"
 #include <string>
 
 class Interpreter : public NodeVisitor
 {
 private:
 	ASTParserPtr astParserPtr;
+	SymbolTableBuilder symtableBuilder;
 private:
 	void raiseError(std::string content);
 
@@ -35,5 +37,6 @@ public:
 public:
 	Interpreter(std::string text);
 	TokenValue interpret();
+	void printAllSymbols();
 };
 

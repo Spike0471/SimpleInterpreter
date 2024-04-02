@@ -29,5 +29,6 @@ private:
 	DECLARE_VISITOR(AssignNode);
 public:
 	SymbolTableBuilder();
+	SymbolTable getSymbolTable() const;
 };
 

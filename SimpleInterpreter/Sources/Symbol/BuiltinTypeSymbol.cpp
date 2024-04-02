@@ -5,7 +5,7 @@ BuiltinTypeSymbol::BuiltinTypeSymbol(std::string sName)
 	symbolName = sName;
 }
 
-std::string BuiltinTypeSymbol::getType()
+SymbolRawPtr BuiltinTypeSymbol::getType()
 {
-	return symbolName;
+	return this;
 }
