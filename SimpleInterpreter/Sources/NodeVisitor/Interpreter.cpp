@@ -28,7 +28,7 @@ TokenValue calculateBinOp(LT left, TokenType opType, RT right)
 	case TokenType::TT_MINUS:
 		return left - right;
 	case TokenType::TT_FLOAT_DIV:
-		return left / right;
+		return (float)left / (float)right;
 	case TokenType::TT_INTEGER_DIV:
 		return (int)(left / right);
 	case TokenType::TT_MULTI:
