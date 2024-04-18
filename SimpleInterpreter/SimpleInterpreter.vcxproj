@@ -126,6 +126,7 @@
     <ClCompile Include="Sources\ASTNodes\BlockNode.cpp" />
     <ClCompile Include="Sources\ASTNodes\CompoundNode.cpp" />
     <ClCompile Include="Sources\ASTNodes\NumNode.cpp" />
+    <ClCompile Include="Sources\ASTNodes\ProcedureDeclNode.cpp" />
     <ClCompile Include="Sources\ASTNodes\ProgramNode.cpp" />
     <ClCompile Include="Sources\ASTNodes\TypeNode.cpp" />
     <ClCompile Include="Sources\ASTNodes\UnaryOpNode.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Headers\ASTNodes\CompoundNode.h" />
     <ClInclude Include="Headers\ASTNodes\NoOpNode.h" />
     <ClInclude Include="Headers\ASTNodes\NumNode.h" />
+    <ClInclude Include="Headers\ASTNodes\ProcedureDeclNode.h" />
     <ClInclude Include="Headers\ASTNodes\ProgramNode.h" />
     <ClInclude Include="Headers\ASTNodes\TypeNode.h" />
     <ClInclude Include="Headers\ASTNodes\UnaryOpNode.h" />

@@ -11,6 +11,7 @@
 #include "ASTNodes/VarNode.h"
 #include "ASTNodes/AssignNode.h"
 #include "Symbol/SymbolTable.h"
+#include "ASTNodes/ProcedureDeclNode.h"
 
 class SymbolTableBuilder : public NodeVisitor
 {
@@ -27,6 +28,7 @@ private:
 	DECLARE_VISITOR(VarDeclNode);
 	DECLARE_VISITOR(VarNode);
 	DECLARE_VISITOR(AssignNode);
+	DECLARE_VISITOR(ProcedureDeclNode);
 public:
 	SymbolTableBuilder();
 	SymbolTable getSymbolTable() const;

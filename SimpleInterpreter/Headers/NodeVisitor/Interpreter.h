@@ -32,6 +32,7 @@ private:
 	DECLARE_VISITOR(BlockNode);
 	DECLARE_VISITOR(VarDeclNode);
 	DECLARE_VISITOR(TypeNode);
+	DECLARE_VISITOR(ProcedureDeclNode);
 public:
 	std::map<std::string, TokenValue> globalVariables;
 public:

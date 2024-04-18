@@ -6,6 +6,7 @@
 #include "ASTNodes/AssignNode.h"
 #include "ASTNodes/NoOpNode.h"
 #include "ASTNodes/BlockNode.h"
+#include "ASTNodes/ProcedureDeclNode.h"
 #include <memory>
 using namespace std;
 
@@ -26,14 +27,14 @@ void ASTParser::eat(TokenType type)
 
 BlockNodePtr ASTParser::block()
 {
-	std::vector<VarDeclNodePtr> declarationNodes = declarations();
+	std::vector<ASTNodePtr> declarationNodes = declarations();
 	CompoundNodePtr compoundStatementNode = compoundStatement();
 	return std::make_shared<BlockNode>(declarationNodes, compoundStatementNode);
 }
 
-std::vector<VarDeclNodePtr> ASTParser::declarations()
+std::vector<ASTNodePtr> ASTParser::declarations()
 {
-	std::vector<VarDeclNodePtr> result;
+	std::vector<ASTNodePtr> result;
 	if (currentTokenPtr->getType() == TokenType::TT_VAR)
 	{
 		eat(TokenType::TT_VAR);
@@ -43,6 +44,18 @@ std::vector<VarDeclNodePtr> ASTParser::declarations()
 			result.insert(result.end(), std::make_move_iterator(tmp.begin()), std::make_move_iterator(tmp.end()));
 			eat(TokenType::TT_SEMI);
 		}
+	}
+
+	while (currentTokenPtr->getType() == TokenType::TT_PROCEDURE)
+	{
+		eat(TokenType::TT_PROCEDURE);
+		auto tmpToken = currentTokenPtr;
+		eat(TokenType::TT_ID);
+		std::string procName = std::get<std::string>(tmpToken->getValue());
+		eat(TokenType::TT_SEMI);
+		auto blockNodePtr = block();
+		eat(TokenType::TT_SEMI);
+		result.push_back(std::make_shared<ProcedureDeclNode>(procName, blockNodePtr));
 	}
 	return result;
 }

@@ -18,7 +18,7 @@ private:
 	void eat(TokenType type);
 
 	BlockNodePtr block();
-	std::vector<VarDeclNodePtr> declarations();
+	std::vector<ASTNodePtr> declarations();
 	std::vector<VarDeclNodePtr> variableDeclaration();
 	TypeNodePtr typeSpec();
 

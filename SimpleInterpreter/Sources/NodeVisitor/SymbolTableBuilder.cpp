@@ -15,6 +15,7 @@ SymbolTableBuilder::SymbolTableBuilder()
 	ADD_TO_VISIT_MAP(VarDeclNode);
 	ADD_TO_VISIT_MAP(VarNode);
 	ADD_TO_VISIT_MAP(AssignNode);
+	ADD_TO_VISIT_MAP(ProcedureDeclNode);
 }
 
 SymbolTable SymbolTableBuilder::getSymbolTable() const
@@ -86,8 +87,6 @@ SYM_TABLE_BUILDER_VISITOR(VarDeclNode)
 
 SYM_TABLE_BUILDER_VISITOR(VarNode)
 {
-	auto node = std::dynamic_pointer_cast<VarNode>(nodePtr);
-	symTable.lookup(std::get<std::string>(node->getTokenPtr()->getValue()));
 	return NULL;
 }
 
@@ -98,5 +97,10 @@ SYM_TABLE_BUILDER_VISITOR(AssignNode)
 	std::string varName = std::get<std::string>(varNode->getTokenPtr()->getValue());
 	symTable.lookup(varName);
 	this->visit(node->getRightPtr());
+	return NULL;
+}
+
+SYM_TABLE_BUILDER_VISITOR(ProcedureDeclNode)
+{
 	return NULL;
 }

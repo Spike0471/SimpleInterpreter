@@ -159,6 +159,11 @@ INTERPRETER_VISITOR(TypeNode)
 	return NULL;
 }
 
+INTERPRETER_VISITOR(ProcedureDeclNode)
+{
+	return NULL;
+}
+
 Interpreter::Interpreter(std::string text)
 {
 	ADD_TO_VISIT_MAP(NumNode);
@@ -173,6 +178,7 @@ Interpreter::Interpreter(std::string text)
 	ADD_TO_VISIT_MAP(BlockNode);
 	ADD_TO_VISIT_MAP(VarDeclNode);
 	ADD_TO_VISIT_MAP(TypeNode);
+	ADD_TO_VISIT_MAP(ProcedureDeclNode);
 	astParserPtr = make_shared<ASTParser>(text);
 }
 

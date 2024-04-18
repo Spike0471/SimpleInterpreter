@@ -1,12 +1,12 @@
 #include "..\..\Headers\ASTNodes\BlockNode.h"
 
-BlockNode::BlockNode(std::vector<VarDeclNodePtr> decls, CompoundNodePtr cNode)
+BlockNode::BlockNode(std::vector<ASTNodePtr> decls, CompoundNodePtr cNode)
 {
 	declarations.swap(decls);
 	compoundNodePtr = cNode;
 }
 
-std::vector<VarDeclNodePtr> BlockNode::getDeclarations()
+std::vector<ASTNodePtr> BlockNode::getDeclarations()
 {
 	return declarations;
 }

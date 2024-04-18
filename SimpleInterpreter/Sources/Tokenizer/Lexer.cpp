@@ -4,7 +4,7 @@
 #include <map>
 using namespace std;
 
-static const std::map<std::string, TokenPtr> REVERSED_WORDS =
+static const std::map<std::string, TokenPtr> RESERVED_WORDS =
 {
 	{"PROGRAM",make_shared<Token>(TokenType::TT_PROGRAM,"PROGRAM")},
 	{"VAR",make_shared<Token>(TokenType::TT_VAR,"VAR")},
@@ -13,6 +13,7 @@ static const std::map<std::string, TokenPtr> REVERSED_WORDS =
 	{"REAL",make_shared<Token>(TokenType::TT_REAL,"REAL")},
 	{"BEGIN",make_shared<Token>(TokenType::TT_BEGIN,"BEGIN")},
 	{"END",make_shared<Token>(TokenType::TT_END,"END") },
+	{"PROCEDURE",make_shared<Token>(TokenType::TT_PROCEDURE,"PROCEDURE") },
 };
 
 void Lexer::advance()
@@ -97,13 +98,13 @@ TokenPtr Lexer::id()
 		result += currentChar;
 		advance();
 	}
-	if (REVERSED_WORDS.find(result) == REVERSED_WORDS.end()) 
+	if (RESERVED_WORDS.find(result) == RESERVED_WORDS.end()) 
 	{
 		return make_shared<Token>(TokenType::TT_ID,result);
 	}
 	else 
 	{
-		return REVERSED_WORDS.at(result);
+		return RESERVED_WORDS.at(result);
 	}
 }
 

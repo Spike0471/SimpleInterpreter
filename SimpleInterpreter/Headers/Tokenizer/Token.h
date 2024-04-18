@@ -14,6 +14,7 @@ enum class TokenType {
 	TT_INTEGER,
 	TT_BEGIN,
 	TT_END,
+	TT_PROCEDURE,
 
 	// consts
 	TT_INTEGER_CONST,

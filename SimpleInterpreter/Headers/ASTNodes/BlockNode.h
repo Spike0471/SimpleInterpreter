@@ -6,11 +6,11 @@
 class BlockNode :public AbstractSyntaxTreeNodeBase
 {
 private:
-	std::vector<VarDeclNodePtr> declarations;
+	std::vector<ASTNodePtr> declarations;
 	CompoundNodePtr compoundNodePtr;
 public:
-	BlockNode(std::vector<VarDeclNodePtr> decls, CompoundNodePtr cNode);
-	std::vector<VarDeclNodePtr> getDeclarations();
+	BlockNode(std::vector<ASTNodePtr> decls, CompoundNodePtr cNode);
+	std::vector<ASTNodePtr> getDeclarations();
 	CompoundNodePtr getCompound();
 
 	GET_CLASS_NAME(BlockNode)
