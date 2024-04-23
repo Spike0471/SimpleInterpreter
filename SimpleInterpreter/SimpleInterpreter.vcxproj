@@ -135,6 +135,7 @@
     <ClCompile Include="Sources\NodeVisitor\Interpreter.cpp" />
     <ClCompile Include="Sources\NodeVisitor\InterpreterException.cpp" />
     <ClCompile Include="Sources\NodeVisitor\NodeVisitor.cpp" />
+    <ClCompile Include="Sources\NodeVisitor\SemanticAnalyzer.cpp" />
     <ClCompile Include="Sources\NodeVisitor\SimpleVisitor.cpp" />
     <ClCompile Include="Sources\NodeVisitor\SymbolTableBuilder.cpp" />
     <ClCompile Include="Sources\Parser\ASTException.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Headers\NodeVisitor\Interpreter.h" />
     <ClInclude Include="Headers\NodeVisitor\InterpreterException.h" />
     <ClInclude Include="Headers\NodeVisitor\NodeVisitor.h" />
+    <ClInclude Include="Headers\NodeVisitor\SemanticAnalyzer.h" />
     <ClInclude Include="Headers\NodeVisitor\SimpleVisitor.h" />
     <ClInclude Include="Headers\NodeVisitor\SymbolTableBuilder.h" />
     <ClInclude Include="Headers\Parser\ASTException.h" />

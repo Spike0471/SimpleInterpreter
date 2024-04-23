@@ -1,5 +1,6 @@
 #include "Symbol/SymbolTable.h"
 #include "Symbol/BuiltinTypeSymbol.h"
+#include <iostream>
 
 SymbolTable::SymbolTable()
 {
@@ -16,7 +17,7 @@ SymbolPtr SymbolTable::lookup(std::string symbolName)
 {
 	if (symbols.find(symbolName) == symbols.end()) 
 	{
-		throw "symbol error";
+		return NULL;
 	}
 	return symbols[symbolName];
 }
@@ -24,4 +25,12 @@ SymbolPtr SymbolTable::lookup(std::string symbolName)
 std::map<std::string, SymbolPtr> SymbolTable::getAll() const
 {
 	return symbols;
+}
+
+void SymbolTable::printAll()
+{
+	for (const auto pair : this->symbols)
+	{
+		std::cout << pair.first << " : " << pair.second->getType()->getName() << std::endl;
+	}
 }

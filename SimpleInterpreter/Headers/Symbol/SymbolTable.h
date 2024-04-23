@@ -12,5 +12,6 @@ public:
 	void define(SymbolPtr symbolPtr);
 	SymbolPtr lookup(std::string symbolName);
 	std::map<std::string, SymbolPtr> getAll() const;
+	void printAll();
 };
 

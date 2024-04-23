@@ -96,6 +96,9 @@
     <ClCompile Include="Sources\ASTNodes\ProcedureDeclNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\NodeVisitor\SemanticAnalyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\ASTNodes\AbstractSyntaxTreeNodeBase.h">
@@ -177,6 +180,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\ASTNodes\ProcedureDeclNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\NodeVisitor\SemanticAnalyzer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
