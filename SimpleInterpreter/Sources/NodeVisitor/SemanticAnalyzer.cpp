@@ -13,7 +13,7 @@ SEMANTIC_ANALYZER_VISITOR(ProgramNode)
 {
 	auto programNodePtr = std::dynamic_pointer_cast<ProgramNode>(nodePtr);
 	this->visit(programNodePtr->getBlockNodePtr());
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(BlockNode)
@@ -24,7 +24,7 @@ SEMANTIC_ANALYZER_VISITOR(BlockNode)
 		this->visit(declNode);
 	}
 	this->visit(blockNodePtr->getCompound());
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(BinOpNode)
@@ -41,12 +41,12 @@ SEMANTIC_ANALYZER_VISITOR(BinOpNode)
 	{
 		checkVariable(std::get<std::string>(this->visit(right)));
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(NumNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(UnaryOpNode)
@@ -57,7 +57,7 @@ SEMANTIC_ANALYZER_VISITOR(UnaryOpNode)
 	{
 		checkVariable(std::get<std::string>(this->visit(right)));
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(CompoundNode)
@@ -67,12 +67,12 @@ SEMANTIC_ANALYZER_VISITOR(CompoundNode)
 	{
 		this->visit(child);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(NoOpNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(VarDeclNode)
@@ -86,17 +86,17 @@ SEMANTIC_ANALYZER_VISITOR(VarDeclNode)
 	if (this->symTable.lookup(varName) != NULL)
 	{
 		throw SemanticError("Variable name redefined: " + varName);
-		return NULL;
+		return TokenValue(0);
 	}
 
 	if (typeSymbol == NULL)
 	{
 		throw SemanticError("Type name not defined:" + typeName);
-		return NULL;
+		return TokenValue(0);
 	}
 
 	symTable.define(std::make_shared<VarSymbol>(varName, typeSymbol));
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(VarNode)
@@ -125,12 +125,12 @@ SEMANTIC_ANALYZER_VISITOR(AssignNode)
 	{
 		this->visit(rightNodePtr);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SEMANTIC_ANALYZER_VISITOR(ProcedureDeclNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 bool SemanticAnalyzer::checkVariable(std::string varName)

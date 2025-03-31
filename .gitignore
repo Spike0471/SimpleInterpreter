@@ -19,6 +19,7 @@ Win32/
 x86/
 bin/
 obj/
+out/
 
 # CMake generated files
 CMakeCache.txt

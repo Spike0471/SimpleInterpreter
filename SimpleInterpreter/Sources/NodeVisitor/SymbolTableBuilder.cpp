@@ -37,7 +37,7 @@ SYM_TABLE_BUILDER_VISITOR(BlockNode)
 		this->visit(decl);
 	}
 	this->visit(node->getCompound());
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(BinOpNode) 
@@ -45,12 +45,12 @@ SYM_TABLE_BUILDER_VISITOR(BinOpNode)
 	auto node = std::dynamic_pointer_cast<BinOpNode>(nodePtr);
 	this->visit(node->left());
 	this->visit(node->right());
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(NumNode) 
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 
@@ -67,12 +67,12 @@ SYM_TABLE_BUILDER_VISITOR(CompoundNode)
 	{
 		this->visit(child);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(NoOpNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(VarDeclNode) 
@@ -82,12 +82,12 @@ SYM_TABLE_BUILDER_VISITOR(VarDeclNode)
 	auto typeSymbol = symTable.lookup(typeName);
 	std::string varName = std::get<std::string>(node->getVar()->getTokenPtr()->getValue());
 	symTable.define(std::make_shared<VarSymbol>(varName,typeSymbol));
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(VarNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(AssignNode)
@@ -97,10 +97,10 @@ SYM_TABLE_BUILDER_VISITOR(AssignNode)
 	std::string varName = std::get<std::string>(varNode->getTokenPtr()->getValue());
 	symTable.lookup(varName);
 	this->visit(node->getRightPtr());
-	return NULL;
+	return TokenValue(0);
 }
 
 SYM_TABLE_BUILDER_VISITOR(ProcedureDeclNode)
 {
-	return NULL;
+	return TokenValue(0);
 }

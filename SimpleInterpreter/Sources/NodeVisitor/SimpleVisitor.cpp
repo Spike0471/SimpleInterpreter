@@ -9,7 +9,7 @@ SIMPLE_VISITOR(ProgramNode)
 	auto node = dynamic_pointer_cast<ProgramNode>(nodePtr);
 	cout << node->getProgramName() << endl;
 	this->visit(node->getBlockNodePtr());
-	return NULL;
+	return TokenValue(0);
 }
 
 SIMPLE_VISITOR(BlockNode)
@@ -19,21 +19,21 @@ SIMPLE_VISITOR(BlockNode)
 	{
 		this->visit(varDeclNode);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SIMPLE_VISITOR(TypeNode)
 {
 	auto node = dynamic_pointer_cast<TypeNode>(nodePtr);
 	cout << get<string>(node->getTokenPtr()->getValue()) << endl;
-	return NULL;
+	return TokenValue(0);
 }
 
 SIMPLE_VISITOR(VarNode)
 {
 	auto node = dynamic_pointer_cast<VarNode>(nodePtr);
 	cout << get<string>(node->getTokenPtr()->getValue()) << endl;
-	return NULL;
+	return TokenValue(0);
 }
 
 SIMPLE_VISITOR(VarDeclNode)
@@ -41,7 +41,7 @@ SIMPLE_VISITOR(VarDeclNode)
 	auto node = dynamic_pointer_cast<VarDeclNode>(nodePtr);
 	this->visit(node->getType());
 	this->visit(node->getVar());
-	return NULL;
+	return TokenValue(0);
 }
 
 SIMPLE_VISITOR(CompoundNode)
@@ -51,7 +51,7 @@ SIMPLE_VISITOR(CompoundNode)
 	{
 		this->visit(child);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 SimpleVisitor::SimpleVisitor(ASTParserPtr p)

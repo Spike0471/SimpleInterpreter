@@ -2,6 +2,7 @@
 #include "Tokenizer/LexerException.h"
 #include <ctype.h>
 #include <map>
+#include <cstring>
 using namespace std;
 
 static const std::map<std::string, TokenPtr> RESERVED_WORDS =
@@ -85,7 +86,7 @@ char Lexer::peek()
 {
 	if (currentPos + 1 >= strlen(text.c_str()))
 	{
-		return NULL;
+		return '\0';
 	}
 	return text.c_str()[currentPos + 1];
 }
@@ -132,7 +133,7 @@ TokenPtr Lexer::getNextTokenPtr()
 
 		if (currentChar == '\0') 
 		{
-			return make_shared<Token>(TokenType::TT_EOF,NULL);
+			return make_shared<Token>(TokenType::TT_EOF,0);
 		}
 
 		TokenType tokenType;
@@ -207,5 +208,5 @@ TokenPtr Lexer::getNextTokenPtr()
 		advance();
 		return make_shared<Token>(tokenType, tokenValue);
 	}
-	return make_shared<Token>(TokenType::TT_EOF, NULL);
+	return make_shared<Token>(TokenType::TT_EOF, 0);
 }

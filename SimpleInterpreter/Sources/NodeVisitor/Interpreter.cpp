@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define INTERPRETER_VISITOR(NODE_NAME) DEFINE_VISITOR(Interpreter,NODE_NAME)
+#define INTERPRETER_VISITOR(NODE_NAME) DEFINE_VISITOR(Interpreter, NODE_NAME)
 
 void Interpreter::raiseError(string content)
 {
@@ -18,7 +18,7 @@ INTERPRETER_VISITOR(NumNode)
 	return numNodePtr->getTokenPtr()->getValue();
 }
 
-template<typename LT, typename RT>
+template <typename LT, typename RT>
 TokenValue calculateBinOp(LT left, TokenType opType, RT right)
 {
 	switch (opType)
@@ -38,7 +38,7 @@ TokenValue calculateBinOp(LT left, TokenType opType, RT right)
 		break;
 	}
 
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(BinOpNode)
@@ -67,7 +67,7 @@ INTERPRETER_VISITOR(BinOpNode)
 	}
 
 	raiseError("Syntax error.");
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(UnaryOpNode)
@@ -84,7 +84,7 @@ INTERPRETER_VISITOR(UnaryOpNode)
 	}
 
 	raiseError("Syntax error");
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(CompoundNode)
@@ -94,12 +94,12 @@ INTERPRETER_VISITOR(CompoundNode)
 	{
 		this->visit(child);
 	}
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(NoOpNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(AssignNode)
@@ -109,7 +109,7 @@ INTERPRETER_VISITOR(AssignNode)
 	auto rightValue = this->visit(node->getRightPtr());
 	auto varName = get<std::string>(varNode->getTokenPtr()->getValue());
 	auto sym = symtableBuilder.getSymbolTable().lookup(varName);
-	if (sym->getType()->getName() == "INTEGER" && !std::holds_alternative<int>(rightValue)) 
+	if (sym->getType()->getName() == "INTEGER" && !std::holds_alternative<int>(rightValue))
 	{
 		raiseError("Symbol type error.");
 	}
@@ -118,7 +118,7 @@ INTERPRETER_VISITOR(AssignNode)
 		raiseError("Symbol type error.");
 	}
 	globalVariables[varName] = rightValue;
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(VarNode)
@@ -146,22 +146,22 @@ INTERPRETER_VISITOR(BlockNode)
 		this->visit(decl);
 	}
 	this->visit(node->getCompound());
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(VarDeclNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(TypeNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 INTERPRETER_VISITOR(ProcedureDeclNode)
 {
-	return NULL;
+	return TokenValue(0);
 }
 
 Interpreter::Interpreter(std::string text)
