@@ -10,13 +10,13 @@
 #include "ASTNodes/VarDeclNode.h"
 #include "ASTNodes/VarNode.h"
 #include "ASTNodes/AssignNode.h"
-#include "Symbol/SymbolTable.h"
+#include "Symbol/ScopedSymbolTable.h"
 #include "ASTNodes/ProcedureDeclNode.h"
 
 class SymbolTableBuilder : public NodeVisitor
 {
 private:
-	SymbolTable symTable;
+	ScopedSymbolTable scopedSymTable;
 private:
 	DECLARE_VISITOR(ProgramNode);
 	DECLARE_VISITOR(BlockNode);
@@ -31,6 +31,6 @@ private:
 	DECLARE_VISITOR(ProcedureDeclNode);
 public:
 	SymbolTableBuilder();
-	SymbolTable getSymbolTable() const;
+	ScopedSymbolTable getSymbolTable() const;
 };
 

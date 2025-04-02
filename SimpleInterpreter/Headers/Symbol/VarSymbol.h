@@ -6,5 +6,5 @@ class VarSymbol : public Symbol
 public:
 	VarSymbol(std::string varName, SymbolPtr varType);
 	SymbolRawPtr getType();
+	std::string toString() const;
 };
-

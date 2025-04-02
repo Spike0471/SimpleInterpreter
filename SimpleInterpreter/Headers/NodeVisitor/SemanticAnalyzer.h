@@ -1,28 +1,30 @@
 #pragma once
 #include "NodeVisitor/NodeVisitor.h"
-#include "Symbol\SymbolTable.h"
-#include<exception>
+#include "Symbol/ScopedSymbolTable.h"
+#include <exception>
 
-class SemanticError :public std::exception 
+class SemanticError : public std::exception
 {
 private:
 	std::string errorMessage;
+
 public:
-	explicit SemanticError(std::string msg) 
+	explicit SemanticError(std::string msg)
 	{
 		errorMessage = msg;
 	}
 
-	virtual const char* what() const noexcept override
+	virtual const char *what() const noexcept override
 	{
 		return errorMessage.c_str();
 	}
 };
 
-class SemanticAnalyzer :public NodeVisitor
+class SemanticAnalyzer : public NodeVisitor
 {
 private:
-	SymbolTable symTable;
+	ScopedSymbolTable scopedSymTable;
+
 private:
 	DECLARE_VISITOR(ProgramNode);
 	DECLARE_VISITOR(BlockNode);
@@ -38,8 +40,8 @@ private:
 	DECLARE_VISITOR(ProcedureDeclNode);
 
 	bool checkVariable(std::string varName);
+
 public:
 	SemanticAnalyzer();
-	SymbolTable getSymbolTable() const;
+	ScopedSymbolTable getSymbolTable() const;
 };
-

@@ -18,9 +18,9 @@ SymbolTableBuilder::SymbolTableBuilder()
 	ADD_TO_VISIT_MAP(ProcedureDeclNode);
 }
 
-SymbolTable SymbolTableBuilder::getSymbolTable() const
+ScopedSymbolTable SymbolTableBuilder::getSymbolTable() const
 {
-	return symTable;
+	return scopedSymTable;
 }
 
 SYM_TABLE_BUILDER_VISITOR(ProgramNode)
@@ -79,9 +79,9 @@ SYM_TABLE_BUILDER_VISITOR(VarDeclNode)
 {
 	auto node = std::dynamic_pointer_cast<VarDeclNode>(nodePtr);
 	auto typeName = std::get<std::string>(node->getType()->getTokenPtr()->getValue());
-	auto typeSymbol = symTable.lookup(typeName);
+	auto typeSymbol = scopedSymTable.lookup(typeName);
 	std::string varName = std::get<std::string>(node->getVar()->getTokenPtr()->getValue());
-	symTable.define(std::make_shared<VarSymbol>(varName,typeSymbol));
+	scopedSymTable.define(std::make_shared<VarSymbol>(varName,typeSymbol));
 	return TokenValue(0);
 }
 
@@ -95,7 +95,7 @@ SYM_TABLE_BUILDER_VISITOR(AssignNode)
 	auto node = std::dynamic_pointer_cast<AssignNode>(nodePtr);
 	auto varNode = std::dynamic_pointer_cast<VarNode>(node->getLeftPtr());
 	std::string varName = std::get<std::string>(varNode->getTokenPtr()->getValue());
-	symTable.lookup(varName);
+	scopedSymTable.lookup(varName);
 	this->visit(node->getRightPtr());
 	return TokenValue(0);
 }

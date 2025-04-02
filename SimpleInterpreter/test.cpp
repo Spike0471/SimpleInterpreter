@@ -4,7 +4,7 @@
 #include "NodeVisitor/Interpreter.h"
 #include <iostream>
 #include "Symbol/Symbol.h"
-#include "Symbol/SymbolTable.h"
+#include "Symbol/ScopedSymbolTable.h"
 #include "Symbol/BuiltinTypeSymbol.h"
 #include "Symbol/VarSymbol.h"
 #include "NodeVisitor/SymbolTableBuilder.h"
@@ -18,7 +18,7 @@ VAR
    number : INTEGER;
    a, b   : INTEGER;
    y      : REAL;
-   y      : INTEGER;
+   c      : INTEGER;
 
 BEGIN {Part9}
    number := 2;
@@ -30,10 +30,10 @@ END.  {Part9}
 )";
 	ASTParser parser(text);
 	SemanticAnalyzer analyzer;
-	try 
+	try
 	{
 		analyzer.visit(parser.parse());
-		analyzer.getSymbolTable().printAll();
+		std::cout << analyzer.getSymbolTable() << std::endl;
 	}
 	catch (SemanticError e)
 	{

@@ -82,8 +82,8 @@ SEMANTIC_ANALYZER_VISITOR(VarDeclNode)
 	std::string varName = std::get<std::string>(this->visit(varNodePtr));
 	auto typeNodePtr = varDeclNodePtr->getType();
 	std::string typeName = std::get<std::string>(this->visit(typeNodePtr));
-	auto typeSymbol = this->symTable.lookup(typeName);
-	if (this->symTable.lookup(varName) != NULL)
+	auto typeSymbol = this->scopedSymTable.lookup(typeName);
+	if (this->scopedSymTable.lookup(varName) != NULL)
 	{
 		throw SemanticError("Variable name redefined: " + varName);
 		return TokenValue(0);
@@ -95,7 +95,7 @@ SEMANTIC_ANALYZER_VISITOR(VarDeclNode)
 		return TokenValue(0);
 	}
 
-	symTable.define(std::make_shared<VarSymbol>(varName, typeSymbol));
+	scopedSymTable.define(std::make_shared<VarSymbol>(varName, typeSymbol));
 	return TokenValue(0);
 }
 
@@ -135,7 +135,7 @@ SEMANTIC_ANALYZER_VISITOR(ProcedureDeclNode)
 
 bool SemanticAnalyzer::checkVariable(std::string varName)
 {
-	if (symTable.lookup(varName) == NULL)
+	if (scopedSymTable.lookup(varName) == NULL)
 	{
 		throw SemanticError("Variable not defined: " + varName);
 		return false;
@@ -157,9 +157,12 @@ SemanticAnalyzer::SemanticAnalyzer()
 	ADD_TO_VISIT_MAP(TypeNode);
 	ADD_TO_VISIT_MAP(AssignNode);
 	ADD_TO_VISIT_MAP(ProcedureDeclNode);
+	scopedSymTable.scopeName = "global";
+	scopedSymTable.scopeLevel = 1;
+	
 }
 
-SymbolTable SemanticAnalyzer::getSymbolTable() const
+ScopedSymbolTable SemanticAnalyzer::getSymbolTable() const
 {
-	return symTable;
+	return scopedSymTable;
 }
